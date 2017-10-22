@@ -1,0 +1,37 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">{{title}}</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li>
+                <a routerLink="/apply">Apply</a>
+            </li>
+            <li>
+                <a routerLink="/view">View</a>
+            </li>
+            <li>
+                <a routerLink="/admin">Admin</a>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Help
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a>
+                    </li>
+                    <li>
+                        <a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a>
+                    </li>
+                    <li>
+                        <a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>
