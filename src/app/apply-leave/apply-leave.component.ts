@@ -7,20 +7,36 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./apply-leave.component.css']
 })
 export class ApplyLeaveComponent implements OnInit {
- applyForm:FormGroup;
- projects:string[];
+  applyForm: FormGroup;
+  projects: string[];
+  membersMap = new Map<string, string[]>();
+  members: string[];
   constructor(private fb: FormBuilder) {
-    this.createForm();
-    this.projects = ["Heroma","TWIN","Palasso"];
-   }
+
+  }
   createForm() {
     this.applyForm = this.fb.group({
-      name: ['', Validators.required ],
-      project: ['',Validators.required],
-      dayOn:['',Validators.required]
+      member: ['', Validators.required],
+      project: ['', Validators.required],
+      dayOn: ['', Validators.required]
     });
   }
   ngOnInit() {
-  }
+    this.membersMap.set("Heroma", ["Prabu", "Ganesh"]);
+    this.membersMap.set("TWIN", ["Balaji", "Suresh"]);
+    this.membersMap.set("Palasso", ["Arvind", "Sneka"]);
+    this.projects = Array.from(this.membersMap.keys());
+    this.createForm();
+    this.onChanges();
 
+  }
+  onChanges(): void {
+    this.applyForm.get("project").valueChanges.subscribe(val => {
+      this.members = this.membersMap.get(val);
+    })
+  }
+  Save():void{
+    console.log("Saved");
+    console.log(this.applyForm);
+  }
 }
