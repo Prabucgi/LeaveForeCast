@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'lv-apply-leave',
   templateUrl: './apply-leave.component.html',
-  styleUrls: ['./apply-leave.component.css']
+  styleUrls: ['./apply-leave.component.css'],
+  
 })
 export class ApplyLeaveComponent implements OnInit {
   applyForm: FormGroup;
@@ -18,7 +20,7 @@ export class ApplyLeaveComponent implements OnInit {
     this.applyForm = this.fb.group({
       member: ['', Validators.required],
       project: ['', Validators.required],
-      dayOn: ['', Validators.required]
+      days: ['', Validators.required]
     });
   }
   ngOnInit() {
@@ -35,8 +37,9 @@ export class ApplyLeaveComponent implements OnInit {
       this.members = this.membersMap.get(val);
     })
   }
-  Save():void{
+  save():void{
     console.log("Saved");
     console.log(this.applyForm);
+    alert("Saved");
   }
 }
