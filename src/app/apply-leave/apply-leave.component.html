@@ -4,7 +4,7 @@
     <div class="panel-body">
       <form [formGroup]="applyForm" novalidate (ngSubmit)="save()">
         <div class="form-group">
-          <label class="center-block">Project:
+          <label class="center-block">Project Name:
             <select class="form-control" formControlName="project">
               <option *ngFor="let project of projects" [value]="project">{{project}}</option>
             </select>
