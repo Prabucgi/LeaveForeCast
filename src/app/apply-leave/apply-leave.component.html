@@ -4,15 +4,15 @@
     <div class="panel-body">
       <form [formGroup]="applyForm" novalidate (ngSubmit)="save()">
         <div class="form-group">
-          <label class="center-block">Project Name:
-            <select class="form-control" formControlName="project">
+          <label class="center-block">I am part of
+            <select class="form-control" formControlName="project" placeholder="pick your project">
               <option *ngFor="let project of projects" [value]="project">{{project}}</option>
             </select>
           </label>
         </div>
         <div class="form-group">
-          <label class="center-block">Name:
-              <select class="form-control" formControlName="member">
+          <label class="center-block">and my name is
+              <select class="form-control" formControlName="member" placeholder="pick your name">
                   <option *ngFor="let member of members" [value]="member">{{member}}</option>
                 </select>
            
@@ -21,8 +21,8 @@
 
        
         <div class="form-group">
-          <label class="center-block">Days needed:
-            <input class="form-control" formControlName="days">
+          <label class="center-block">I may not available on
+            <input class="form-control" formControlName="days" placeholder="pick your dates">
           </label>
         </div>
         <button class="btn btn-primary" type="submit" [disabled]="!applyForm.valid">Save</button>
