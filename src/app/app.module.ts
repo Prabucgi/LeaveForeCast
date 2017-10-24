@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { DxDateBoxModule } from 'devextreme-angular';
 
-import { NgModule } from '@angular/core';
+import { NgModule,enableProdMode } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
@@ -10,8 +11,9 @@ import { ApplyLeaveComponent } from './apply-leave/apply-leave.component';
 import { ViewLeaveComponent } from './view-leave/view-leave.component';
 import { AdminLeaveComponent } from './admin-leave/admin-leave.component';
 
-
-
+if(!/localhost/.test(document.location.host)) {
+  enableProdMode();
+}
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { AdminLeaveComponent } from './admin-leave/admin-leave.component';
   ],
   imports: [
     BrowserModule,
+    DxDateBoxModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,

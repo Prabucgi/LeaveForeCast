@@ -13,6 +13,10 @@ export class ApplyLeaveComponent implements OnInit {
   projects: string[];
   membersMap = new Map<string, string[]>();
   members: string[];
+  value: Date = new Date(1981, 3, 27);
+  now: Date = new Date();
+  min: Date = new Date(1900, 0, 1);
+  dateClear = new Date(2015, 11, 1, 6);
   constructor(private fb: FormBuilder) {
 
   }
@@ -20,7 +24,8 @@ export class ApplyLeaveComponent implements OnInit {
     this.applyForm = this.fb.group({
       member: ['', Validators.required],
       project: ['', Validators.required],
-      days: ['', Validators.required]
+      days: ['', Validators.required],
+      rememberMeNextTime:false
     });
   }
   ngOnInit() {
