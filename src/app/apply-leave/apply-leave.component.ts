@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 
 @Component({
@@ -13,10 +13,8 @@ export class ApplyLeaveComponent implements OnInit {
   projects: string[];
   membersMap = new Map<string, string[]>();
   members: string[];
-  value: Date = new Date(1981, 3, 27);
-  now: Date = new Date();
-  min: Date = new Date(1900, 0, 1);
-  dateClear = new Date(2015, 11, 1, 6);
+  isDatePicked = false;
+
   constructor(private fb: FormBuilder) {
 
   }
@@ -24,8 +22,9 @@ export class ApplyLeaveComponent implements OnInit {
     this.applyForm = this.fb.group({
       member: ['', Validators.required],
       project: ['', Validators.required],
-      days: ['', Validators.required],
-      rememberMeNextTime: false
+      days: [[], Validators.required],
+      rememberMeNextTime: false,
+      selectedDate: null
     });
   }
   ngOnInit() {
@@ -37,18 +36,28 @@ export class ApplyLeaveComponent implements OnInit {
     this.onChanges();
 
   }
-
-  buildDay(): FormGroup {
-    return this.fb.group({ day: '' });
-  }
   onChanges(): void {
     this.applyForm.get("project").valueChanges.subscribe(val => {
       this.members = this.membersMap.get(val);
+    })
+    this.applyForm.get("selectedDate").valueChanges.subscribe(val => {
+      this.isDatePicked = val != null && val != '';
     })
   }
   save(): void {
     console.log("Saved");
     console.log(this.applyForm);
     alert("Saved");
+  }
+  addDate(): void {
+    var selectedDate = this.applyForm.get("selectedDate");
+    var days = this.applyForm.get("days").value as FormArray;
+    days.push(selectedDate.value);
+    selectedDate.setValue('');
+  }
+  deleteDate(day: number): void {
+    var days = this.applyForm.get("days").value as FormArray;
+    alert(days[day]);
+    days.removeAt(day);
   }
 }
