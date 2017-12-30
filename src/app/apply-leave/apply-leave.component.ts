@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, FormArray, AbstractCon
 
 })
 export class ApplyLeaveComponent implements OnInit {
+
   applyForm: FormGroup;
   projects: string[];
   membersMap = new Map<string, string[]>();
@@ -66,6 +67,8 @@ export class ApplyLeaveComponent implements OnInit {
   addDate(): void {
     var selectedDate = this.applyForm.get("selectedDate");
     var days = this.applyForm.controls.days.value as Array<string>;
+    if (this.dayAlreadyAdded(days, selectedDate.value)) return;
+
     days.push(selectedDate.value);
     selectedDate.setValue('');
     this.atleastOneDayAdded = days.length > 0;
@@ -78,5 +81,13 @@ export class ApplyLeaveComponent implements OnInit {
   }
   applyLeaveAgain(): void {
     this.leavesSaved = false;
+  }
+  clearAllSelectedDays(): void {
+    this.applyForm.controls.days.setValue(new Array<string>());
+    this.atleastOneDayAdded = false;
+  }
+  dayAlreadyAdded(days: Array<string>, day: string): boolean {
+    var index = days.indexOf(day);
+    return (index !== -1);
   }
 }
