@@ -29,18 +29,7 @@ export class ApplyLeaveComponent implements OnInit {
       selectedDate: null
     });
   }
-  validateDays(control: AbstractControl) {
-
-    var days = control.value as Array<string>;
-    alert(days.length);
-    if (days.length == 0) {
-      return { notValid: false };
-    }
-    return null;
-
-
-  }
-  ngOnInit() {
+   ngOnInit() {
     this.membersMap.set("Heroma", ["Prabu", "Ganesh"]);
     this.membersMap.set("TWIN", ["Balaji", "Suresh"]);
     this.membersMap.set("Palasso", ["Arvind", "Sneka"]);
@@ -51,6 +40,7 @@ export class ApplyLeaveComponent implements OnInit {
   onChanges(): void {
     this.applyForm.controls.project.valueChanges.subscribe(val => {
       this.members = this.membersMap.get(val);
+      this.applyForm.controls.member.setValue('');
     })
     this.applyForm.controls.selectedDate.valueChanges.subscribe(val => {
       this.isDatePicked = val != null && val != '';
