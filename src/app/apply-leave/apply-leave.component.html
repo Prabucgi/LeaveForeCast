@@ -1,47 +1,67 @@
 <div class="col-md-6 col-md-offset-3">
-  <form [formGroup]="applyForm" novalidate (ngSubmit)="save()">
-    <div class="form-group">
-      <div class="input-group">
-        <span class="input-group-addon">I am part of</span>
-        <select class="form-control" formControlName="project" placeholder="pick your project">
-          <option *ngFor="let project of projects" [value]="project">{{project}}</option>
-        </select>
+  <div [hidden]="!leavesSaved">
+ <div class="alert alert-success">
+   Awesome!!! you did a great job.
+ </div>
+<div>
+  <button class="btn btn-primary" (click)="applyLeaveAgain()">Hmm, let me do it again</button>
+</div>
+  </div>
+  <div [hidden]="leavesSaved">
+    <form [formGroup]="applyForm" novalidate (ngSubmit)="save()">
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">I am part of</span>
+          <select class="form-control" formControlName="project" placeholder="pick your project" required>
+            <option *ngFor="let project of projects" [value]="project">{{project}}</option>
+          </select>
+          <!--
+        <div [hidden]="project.valid || project.pristine"
+        class="alert alert-danger">      
+     Project is required
+   </div>
+    //-->
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="input-group">
-        <span class="input-group-addon">...and my name is</span>
-        <select class="form-control" formControlName="member" placeholder="pick your name">
-          <option *ngFor="let member of members" [value]="member">{{member}}</option>
-        </select>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">...and my name is</span>
+          <select class="form-control" formControlName="member" placeholder="pick your name" required>
+            <option *ngFor="let member of members" [value]="member">{{member}}</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" formControlName="rememberMeNextTime">Remember me next time</label>
+      <div class="form-group">
+        <div class="checkbox">
+          <label class="center-block">
+            <input type="checkbox" formControlName="rememberMeNextTime">Remember me next time</label>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="input-group">
-        <span class="input-group-addon">I may not available</span>
-        <input class="form-control" formControlName="selectedDate" type="date" placeholder="pick your date...">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button" (click)="addDate()" [disabled]="!isDatePicked">
-            <span class="glyphicon glyphicon-plus"></span> Add</button>
-        </span>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">I may not available</span>
+          <input class="form-control" formControlName="selectedDate" type="date" placeholder="pick your date...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" (click)="addDate()" [disabled]="!isDatePicked">
+              <span class="glyphicon glyphicon-plus"></span> Add</button>
+          </span>
+        </div>
       </div>
-    </div>
-    <h3>You picked</h3>
-    <p *ngFor="let day of applyForm.get('days').value; let i=index">
-      
-      {{day}}  <a href="javascript:void()" (click)="deleteDate(i)">
-          <span class="glyphicon glyphicon-minus-sign"></span></a>
-    
-    </p>
-    
-    <button class="btn btn-primary" type="submit" [disabled]="!applyForm.valid">
-      <span class="glyphicon glyphicon-floppy-save"></span> Save</button>
-  </form>
-  <p>Form value: {{ applyForm.value | json }}</p>
+
+      <h3>You picked</h3>
+      <p *ngFor="let day of applyForm.controls.days.value; let i=index">
+
+        {{day}}
+        <a href="javascript:void()" (click)="deleteDate(day)">
+          <span class="glyphicon glyphicon-minus-sign"></span>
+        </a>
+
+      </p>
+
+      <button class="btn btn-primary" type="submit" [disabled]="(!applyForm.valid || !atleastOneDayAdded)">
+        <span class="glyphicon glyphicon-floppy-save"></span> Save</button>
+    </form>
+
+    <p>Form value: {{ applyForm.value | json }}</p>
+  </div>
 </div>

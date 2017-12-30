@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ApplyLeaveComponent } from './apply-leave/apply-leave.component';
 import { ViewLeaveComponent } from './view-leave/view-leave.component';
 import { AdminLeaveComponent } from './admin-leave/admin-leave.component';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 if(!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -48,3 +49,4 @@ if(!/localhost/.test(document.location.host)) {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+platformBrowserDynamic().bootstrapModule(AppModule);
